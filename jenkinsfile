@@ -2,15 +2,17 @@ def gv
 
 pipeline {
     agent any
+    
+    parameters{
+            booleanParam(name: 'boolParam', defaultValue: True)
+            choice(name: 'selChoice', choices: ['1.0.1','1.0.2'])
+        }
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         jdk 'JAVA_HOME'
         maven "MAVEN"
     }
-    parameters{
-        booleanParam(name: 'boolParam', defaultValue: True)
-        choice(name: 'selChoice', choices: ['1.0.1','1.0.2'])
-    }
+
 
     stages {
 
