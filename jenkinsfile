@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    def gv
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         jdk 'JAVA_HOME'
@@ -8,6 +8,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Init'){
+            script{
+                gv =load "Vars/Script.groovy"
+            }
+
+        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -23,6 +30,7 @@ pipeline {
         stage('Release Cut'){
                 steps {
                     script {
+                        /*
                         def tagName="T1.0.${env.BUILD_NUMBER}"
                         def tagMsg="Release Tag ${env.BUILD_NUMBER}"
                         withCredentials([string(credentialsId: 'git-secret-id', variable: 'TOKEN')]
@@ -40,6 +48,8 @@ pipeline {
                                 git tag -a ${tagName} -m "${tagMsg}"
                                 git push origin ${tagName}
                             """
+                            */
+                            gv.ReleaseCut()
                         }
 
                     }
