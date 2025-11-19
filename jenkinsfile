@@ -2,9 +2,9 @@ def gv
 
 pipeline {
     agent any
-    
+
     parameters{
-            booleanParam(name: 'boolParam', defaultValue: True)
+            booleanParam(name: 'boolParam', defaultValue: true)
             choice(name: 'selChoice', choices: ['1.0.1','1.0.2'])
         }
     tools {
