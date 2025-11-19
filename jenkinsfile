@@ -1,6 +1,7 @@
+def gv
+
 pipeline {
     agent any
-    def gv
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         jdk 'JAVA_HOME'
@@ -10,10 +11,11 @@ pipeline {
     stages {
 
         stage('Init'){
-            script{
-                gv =load "Vars/Script.groovy"
+            steps{
+               script{
+                    gv =load "Vars/Script.groovy"
+               }
             }
-
         }
         stage('Build') {
             steps {
