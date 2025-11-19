@@ -48,10 +48,10 @@ pipeline {
                                 git tag -a ${tagName} -m "${tagMsg}"
                                 git push origin ${tagName}
                             """
-                            */
-                            gv.ReleaseCut()
-                        }
 
+
+                        }*/
+                    gv.ReleaseCut()
                     }
                 }
             }
