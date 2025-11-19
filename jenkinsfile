@@ -7,6 +7,10 @@ pipeline {
         jdk 'JAVA_HOME'
         maven "MAVEN"
     }
+    parameters{
+        booleanParam(name: 'boolParam', defaultValue: True)
+        choice(name: 'selChoice', choices: ['1.0.1','1.0.2'])
+    }
 
     stages {
 
@@ -30,6 +34,9 @@ pipeline {
             }
         }
         stage('Release Cut'){
+                when{
+                    expression{params.selChoice==True}
+                }
                 steps {
                     script {
                         /*
