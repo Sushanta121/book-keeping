@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        jdk 'JAVA_HOME'
+        maven "MAVEN"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git url: 'https://github.com/Sushanta121/book-keeping.git', branch: 'main'
+
+                // Run Maven on a Unix agent.
+                bat "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        }
+        stage('Release Cut'){
+                steps {
+                    script {
+                        def tagName="T1.0.${env.BUILD_NUMBER}"
+                        def tagMsg="Release Tag ${env.BUILD_NUMBER}"
+                        withCredentials([string(credentialsId: 'git-secret-id', variable: 'TOKEN')]
+
+                            ) {
+                            bat """
+                                git config user.email "jenkins@ci.com"
+                                git config user.name "jenkins"
+
+                                git remote set-url origin https://$TOKEN@github.com/Sushanta121/book-keeping.git
+
+                                git checkout main
+                                git pull origin main
+
+                                git tag -a ${tagName} -m "${tagMsg}"
+                                git push origin ${tagName}
+                            """
+                        }
+
+                    }
+                }
+            }
+        }
+    }
