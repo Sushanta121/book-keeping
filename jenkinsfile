@@ -53,7 +53,7 @@ pipeline {
 
 
                         }*/
-                    gv.ReleaseCut()
+                        gv.ReleaseCut()
                     }
                 }
             }

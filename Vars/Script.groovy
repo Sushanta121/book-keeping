@@ -19,3 +19,4 @@ def ReleaseCut() {
 
     }
 }
+return this
