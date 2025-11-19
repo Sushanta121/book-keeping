@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Release Cut'){
                 when{
-                    expression{params.selChoice==True}
+                    expression{params.boolParam==true}
                 }
                 steps {
                     script {
