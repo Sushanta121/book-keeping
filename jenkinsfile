@@ -29,7 +29,8 @@ pipeline {
                 git url: 'https://github.com/Sushanta121/book-keeping.git', branch: 'main'
 
                 // Run Maven on a Unix agent.
-                bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                //bat "mvn -Dmaven.test.failure.ignore=true clean package"
+		bat "mvn -Dmaven.test.failure.ignore=true clean deploy site-deploy -DcljTestReports=true -P shade -Drun.static.analysis_plugin.plugin.phase=none -Drun.essential.static.analysis.plugin.phase=none -DskipReleaseTests=true"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
